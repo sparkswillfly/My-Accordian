@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Sections</title>
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato";
+    background-color: black;    
+}
+
+.container {
+    background-color: #fff;
+    padding: 15px;
+    margin: 2rem 5rem;
+}
+
+h2 {
+    color: #fff;
+    cursor: pointer;
+    padding: 18px;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+    background-color: blueviolet;
+    padding: 5px;
+    margin: 15px;
+}
+
+
+.accordian:hover {
+    background-color:blue;
+}
+
+.panel {
+    background-color:#fff;
+    overflow: hidden;
+    padding: 0 10px;
+    display: none;    
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+
+      </header>
+
+      <section>
+
+      </section>
+    </div>
+    <script>
+    var header = document.querySelector('header');
+    var section = document.querySelector('section');
+    var requestURL = 'http://design.propcom.co.uk/buildtest/accordion-data.json';
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+      var Sections = request.response;
+      displaySections(Sections);
+    }
+    
+    function displaySections(jsonObj) {
+      var info = jsonObj['blocks'];
+      for(var i = 0; i < info.length; i++) {
+        var sectionDiv = document.createElement('div');
+        var sectionHead = document.createElement('h2');
+        var sectionDivContent = document.createElement('div');
+        var sectionContent = document.createElement('p');
+        sectionHead.classList.add("accordian");
+        sectionDivContent.classList.add("panel");
+        sectionHead.textContent = info[i].heading;
+        sectionContent.textContent = info[i].content;
+        
+        sectionDiv.appendChild(sectionHead);
+        sectionDiv.appendChild(sectionDivContent);
+        sectionDivContent.appendChild(sectionContent);
+        section.appendChild(sectionDiv);
+      }
+    }
+
+
+
+
+
+var a = getElementsByClassName("accordian");
+var b = getElementsByClassName("panel");
+var i;
+for (i = 0; i < a.length; i++) {
+  a[i].addEventListener("click", function() {
+    if (b.style.display === "block") {
+      b.style.display = "none";
+    }
+    else {
+      b.style.display = "block";
+    }
+  });
+};
+
+
+    </script>
+  </body>
+</html>
